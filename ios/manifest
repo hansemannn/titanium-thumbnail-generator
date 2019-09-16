@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: titanium-thumbnail-generator
+author: Hans Knöchel
+license: MIT
+copyright: Copyright (c) 2019 by Hans Knöchel
+
+# these should not be edited
+name: titanium-thumbnail-generator
+moduleid: ti.thumbnail
+guid: df746969-905f-4880-9d48-88bc2e5bf9de
+platform: iphone
+minsdk: 8.3.0
