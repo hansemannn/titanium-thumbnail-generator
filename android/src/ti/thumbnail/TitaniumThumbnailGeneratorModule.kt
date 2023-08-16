@@ -11,6 +11,7 @@ package ti.thumbnail
 
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
+import android.net.Uri
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import org.appcelerator.kroll.KrollDict
@@ -18,6 +19,7 @@ import org.appcelerator.kroll.KrollFunction
 import org.appcelerator.kroll.KrollModule
 import org.appcelerator.kroll.annotations.Kroll
 import org.appcelerator.kroll.common.Log
+import org.appcelerator.titanium.TiBlob
 import java.io.File
 import java.util.concurrent.Executors
 
@@ -42,7 +44,7 @@ class TitaniumThumbnailGeneratorModule : KrollModule() {
                 val event = KrollDict()
                 event["success"] = thumbnail != null
                 if (thumbnail != null) {
-                    event["image"] = thumbnail
+                    event["image"] = TiBlob.blobFromImage(thumbnail)
                 }
                 callback?.callAsync(getKrollObject(), event)
             }
@@ -68,8 +70,9 @@ class TitaniumThumbnailGeneratorModule : KrollModule() {
         executor.execute {
             try {
                 // Step 1: Open the PDF and render the first page into a Bitmap
+                val uri = Uri.parse(pdfPath)
                 val fileDescriptor =
-                    ParcelFileDescriptor.open(File(pdfPath), ParcelFileDescriptor.MODE_READ_ONLY)
+                    ParcelFileDescriptor.open(File(uri.path), ParcelFileDescriptor.MODE_READ_ONLY)
                 val pdfRenderer = PdfRenderer(fileDescriptor)
                 val pageCount = pdfRenderer.pageCount
 
@@ -87,6 +90,7 @@ class TitaniumThumbnailGeneratorModule : KrollModule() {
 
                     // Step 3: Notify callback with the path to the cached image
                     callback.onThumbnailGenerated(thumbnail)
+                    page.close()
                 } else {
                     callback.onThumbnailGenerated(null)
                 }
