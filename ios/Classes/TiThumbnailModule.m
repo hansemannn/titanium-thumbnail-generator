@@ -35,12 +35,10 @@
   CGSize size = CGSizeMake([TiUtils floatValue:params[@"size"][@"width"]], [TiUtils floatValue:params[@"size"][@"height"]]);
   KrollCallback *callback = (KrollCallback *)params[@"callback"];
 
-  QLThumbnailRepresentationType representationTypes = QLThumbnailRepresentationTypeThumbnail | QLThumbnailRepresentationTypeLowQualityThumbnail;
-
   QLThumbnailGenerationRequest *request = [[QLThumbnailGenerationRequest alloc] initWithFileAtURL:fileURL
                                                                                              size:size
                                                                                             scale:UIScreen.mainScreen.scale
-                                                                              representationTypes:representationTypes];
+                                                                              representationTypes:QLThumbnailGenerationRequestRepresentationTypeThumbnail];
 
   [[QLThumbnailGenerator sharedGenerator] generateBestRepresentationForRequest:request
                                                              completionHandler:^(QLThumbnailRepresentation * _Nullable thumbnail, NSError * _Nullable error) {
