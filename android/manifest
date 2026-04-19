@@ -2,7 +2,7 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.0
+version: 1.1.0
 apiversion: 4
 architectures: arm64-v8a armeabi-v7a x86 x86_64
 description: titanium-thumbnail-generator
@@ -15,4 +15,4 @@ name: titanium-thumbnail-generator
 moduleid: ti.thumbnail
 guid: 3c640587-7179-4368-abad-a27caf1b913e
 platform: android
-minsdk: 12.0.0
+minsdk: 12.7.0
